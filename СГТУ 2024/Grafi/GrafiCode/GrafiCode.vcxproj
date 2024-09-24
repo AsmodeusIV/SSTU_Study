@@ -129,10 +129,12 @@
   <ItemGroup>
     <ClCompile Include="GrafiCode.cpp" />
     <ClCompile Include="Lesson10.cpp" />
+    <ClCompile Include="Lesson6.cpp" />
     <ClCompile Include="Lesson7.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Lesson10.h" />
+    <ClInclude Include="Lesson6.h" />
     <ClInclude Include="Lesson7.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
