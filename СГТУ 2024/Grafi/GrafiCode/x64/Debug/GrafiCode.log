@@ -1,2 +1,3 @@
-﻿  GrafiCode.cpp
-  GrafiCode.vcxproj -> M:\SSTU_Study\СГТУ 2024\Grafi\GrafiCode\x64\Debug\GrafiCode.exe
+﻿  Lesson9.cpp
+J:\SSTU_Proj\СГТУ 2024\Grafi\GrafiCode\Lesson9.cpp(80,13): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+  GrafiCode.vcxproj -> J:\SSTU_Proj\СГТУ 2024\Grafi\GrafiCode\x64\Debug\GrafiCode.exe

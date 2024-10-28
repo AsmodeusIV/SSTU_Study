@@ -1,11 +1,86 @@
 #include "Lesson9.h"
 #include <iostream>
 #include <vector>
+#include <queue>
 
 using namespace std;
 
-void ex_9() {
+struct Vertex {
+    int degree;
+    vector<int> neighbors;
+};
 
+// Функция для проверки наличия эйлерова цикла
+bool hasEulerianCycle(vector<Vertex>& graph) {
+    int oddDegreeCount = 0;
+    for (auto& vertex : graph) {
+        if (vertex.degree % 2 != 0) {
+            oddDegreeCount++;
+        }
+    }
+    return oddDegreeCount == 0;
+}
+
+// Функция для поиска эйлерова цикла
+vector<int> findEulerianCycle(vector<Vertex>& graph, int startVertex) {
+	vector<int> cycle;
+	queue<int> stack;
+	stack.push(startVertex);
+
+	vector<bool> visited(graph.size(), false);
+
+	while (!stack.empty()) {
+		int currentVertex = stack.front();
+		if (graph[currentVertex].degree > 0 && !graph[currentVertex].neighbors.empty()) { // Проверка на пустоту
+			int neighbor = graph[currentVertex].neighbors.back();
+			graph[currentVertex].neighbors.pop_back();
+			graph[neighbor].degree--;
+			if (!visited[neighbor]) {
+				stack.push(neighbor);
+				visited[neighbor] = true;
+			}
+		}
+		else {
+			cycle.push_back(currentVertex);
+			stack.pop();
+		}
+	}
+
+	return cycle;
+}
+
+
+void ex_9() {
+	int numVertices, numEdges;
+	cin >> numVertices >> numEdges;
+
+	// Инициализация графа
+	vector<Vertex> graph(numVertices);
+	for (int i = 0; i < numEdges; i++) {
+		int vertex1, vertex2;
+		cin >> vertex1 >> vertex2;
+		vertex1--;
+		vertex2--;
+
+		graph[vertex1].degree++;
+		graph[vertex2].degree++;
+		graph[vertex1].neighbors.push_back(vertex2);
+		graph[vertex2].neighbors.push_back(vertex1);
+	}
+
+	// Проверка наличия эйлерова цикла
+	if (!hasEulerianCycle(graph)) {
+		cout << "NONE" << endl;
+		return;
+	}
+	// Поиск эйлерова цикла
+	vector<int> cycle = findEulerianCycle(graph, 0);
+
+	// Вывод эйлерова цикла
+	for (int i = cycle.size() - 1; i >= 0; i--) {
+		cout << cycle[i] + 1 << " ";
+	}
+	cout << cycle[0] + 1 << endl;
 }
 
 int sum = 80000;
