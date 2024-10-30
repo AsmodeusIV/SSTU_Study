@@ -1,0 +1,14 @@
+m:\VK_Projects\Katusha Pyzhik\Project\Workers\Workers\bin\Debug\net8.0\Workers.exe
+m:\VK_Projects\Katusha Pyzhik\Project\Workers\Workers\bin\Debug\net8.0\Workers.deps.json
+m:\VK_Projects\Katusha Pyzhik\Project\Workers\Workers\bin\Debug\net8.0\Workers.runtimeconfig.json
+m:\VK_Projects\Katusha Pyzhik\Project\Workers\Workers\bin\Debug\net8.0\Workers.dll
+m:\VK_Projects\Katusha Pyzhik\Project\Workers\Workers\bin\Debug\net8.0\Workers.pdb
+m:\VK_Projects\Katusha Pyzhik\Project\Workers\Workers\obj\Debug\net8.0\Workers.GeneratedMSBuildEditorConfig.editorconfig
+m:\VK_Projects\Katusha Pyzhik\Project\Workers\Workers\obj\Debug\net8.0\Workers.AssemblyInfoInputs.cache
+m:\VK_Projects\Katusha Pyzhik\Project\Workers\Workers\obj\Debug\net8.0\Workers.AssemblyInfo.cs
+m:\VK_Projects\Katusha Pyzhik\Project\Workers\Workers\obj\Debug\net8.0\Workers.csproj.CoreCompileInputs.cache
+m:\VK_Projects\Katusha Pyzhik\Project\Workers\Workers\obj\Debug\net8.0\Workers.dll
+m:\VK_Projects\Katusha Pyzhik\Project\Workers\Workers\obj\Debug\net8.0\refint\Workers.dll
+m:\VK_Projects\Katusha Pyzhik\Project\Workers\Workers\obj\Debug\net8.0\Workers.pdb
+m:\VK_Projects\Katusha Pyzhik\Project\Workers\Workers\obj\Debug\net8.0\Workers.genruntimeconfig.cache
+m:\VK_Projects\Katusha Pyzhik\Project\Workers\Workers\obj\Debug\net8.0\ref\Workers.dll

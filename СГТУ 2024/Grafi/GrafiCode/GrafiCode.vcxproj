@@ -129,15 +129,19 @@
   <ItemGroup>
     <ClCompile Include="GrafiCode.cpp" />
     <ClCompile Include="Lesson10.cpp" />
+    <ClCompile Include="Lesson15.cpp" />
     <ClCompile Include="Lesson6.cpp" />
     <ClCompile Include="Lesson7.cpp" />
     <ClCompile Include="Lesson9.cpp" />
+    <ClCompile Include="total.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Lesson10.h" />
+    <ClInclude Include="Lesson15.h" />
     <ClInclude Include="Lesson6.h" />
     <ClInclude Include="Lesson7.h" />
     <ClInclude Include="Lesson9.h" />
+    <ClInclude Include="total.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
