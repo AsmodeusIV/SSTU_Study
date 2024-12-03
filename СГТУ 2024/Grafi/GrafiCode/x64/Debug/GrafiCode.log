@@ -1,5 +1,2 @@
 ﻿  GrafiCode.cpp
-  total.cpp
-M:\SSTU_Study\СГТУ 2024\Grafi\GrafiCode\total.cpp(271,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-  Создание кода...
   GrafiCode.vcxproj -> M:\SSTU_Study\СГТУ 2024\Grafi\GrafiCode\x64\Debug\GrafiCode.exe

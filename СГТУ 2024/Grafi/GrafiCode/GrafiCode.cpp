@@ -1,9 +1,9 @@
 ﻿#include <iostream>
-#include "total.h"
+#include "Lesson6.h"
 
 int main()
 {
     setlocale(LC_ALL, "Russian");
 
-    ex_33();
+    ex_5();
 }

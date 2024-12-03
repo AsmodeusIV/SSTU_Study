@@ -1,0 +1,136 @@
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+    }
+
+    header {
+        background-color: #333;
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+    }
+
+    nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+    }
+
+    nav li {
+        display: inline-block;
+        margin: 0 10px;
+    }
+
+    nav a {
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .container {
+        width: 80%;
+        margin: 20px auto;
+        background-color: #fff;
+        padding: 20px;
+        margin-left: 200px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        text-align: center;
+        margin-top: 0;
+    }
+
+    .user-info {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background-color: #fff;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+nav a {
+  color: #000;
+  text-decoration: none;
+  font-size: 1.2em; /* Увеличиваем размер шрифта */
+  font-weight: bold; /* Делаем шрифт жирным */
+}
+
+.user-info {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: right; /* Выравнивание текста по правому краю */
+}
+
+.user-info a {
+  color: #333; /* Изменяем цвет ссылок на серый */
+  text-decoration: none;
+  font-weight: bold; /* Делаем шрифт жирным */
+}
+
+.user-info a:hover {
+  text-decoration: underline; /* Подчеркиваем при наведении курсора */
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar {
+    width: 200px;
+    background-color: #9e51b3;
+    padding: 20px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar li {
+    margin-bottom: 10px;
+}
+
+.sidebar a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar a:hover {
+    background-color: #ddd;
+}
+
+.content {
+    margin-left: 200px; /* Ширина боковой панели + отступ */
+    padding: 20px;
+}
+
+.container {
+    width: 80%;
+    margin: 20px auto;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
