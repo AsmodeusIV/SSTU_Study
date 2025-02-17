@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resize Image</title>
+</head>
+<body>
+    <h1>Resize Image</h1>
+    <img src="{{ url_for('uploaded_file', filename=filename) }}" alt="Uploaded Image">
+    <form method="post">
+        Width: <input type="number" name="width" value="100"><br>
+        Height: <input type="number" name="height" value="100"><br>
+        Interpolation:
+        <select name="interpolation">
+            <option value="nearest">Nearest Neighbor</option>
+            <option value="bilinear">Bilinear</option>
+            <option value="bicubic" selected>Bicubic</option>
+        </select><br>
+        <input type="submit" value="Resize">
+    </form>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Editor</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#width, #height').change(resizeImage);
+            //Initial resize if filename is available.
+            if ("{{ uploaded_filename }}") {
+                resizeImage();
+            }
+        });
+
+        function resizeImage() {
+            var width = $('#width').val();
+            var height = $('#height').val();
+            var filename = "{{ uploaded_filename }}";
+
+            if (filename) { //Check for valid filename before sending request
+                $.ajax({
+                    type: "POST",
+                    url: "/resize/" + filename,
+                    data: { width: width, height: height },
+                    success: function(response) {
+                        $('#preview').attr('src', 'data:image/jpeg;base64,' + response.image);
+                    },
+                    error: function(error) {
+                        console.error("Error resizing image:", error);
+                    }
+                });
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Image Editor</h1>
+    <form method="post" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <input type="submit" value="Upload">
+    </form>
+
+    {% if uploaded_filename %}
+        <br>
+<input type="number" id="width" value="100"> Width 
+<br>
+        <input type="number" id="height" value="100"> Height 
+<br>
+        <img id="preview" src="{{ url_for('uploaded_file', filename=uploaded_filename) }}" alt="Preview">
+ <br>
+<button id="reset">Reset to Original Size</button> 
+    {% endif %}
+</body>
+</html>
