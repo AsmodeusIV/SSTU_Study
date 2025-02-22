@@ -3,12 +3,24 @@
   "WorkspaceRootPath": "J:\\SSTU_Proj\\\u0421\u0413\u0422\u0423 6 \u0441\u0435\u043C\\\u0410\u0432\u0442\u043E\u043C\u0430\u0442\u044B\\AT_Proj1\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B77B0637-86E6-4658-AB48-09E257204969}|AT_Proj1\\AT_Proj1.csproj|j:\\sstu_proj\\\u0441\u0433\u0442\u0443 6 \u0441\u0435\u043C\\\u0430\u0432\u0442\u043E\u043C\u0430\u0442\u044B\\at_proj1\\at_proj1\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B77B0637-86E6-4658-AB48-09E257204969}|AT_Proj1\\AT_Proj1.csproj|solutionrelative:at_proj1\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B77B0637-86E6-4658-AB48-09E257204969}|AT_Proj1\\AT_Proj1.csproj|j:\\sstu_proj\\\u0441\u0433\u0442\u0443 6 \u0441\u0435\u043C\\\u0430\u0432\u0442\u043E\u043C\u0430\u0442\u044B\\at_proj1\\at_proj1\\entertimes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B77B0637-86E6-4658-AB48-09E257204969}|AT_Proj1\\AT_Proj1.csproj|solutionrelative:at_proj1\\entertimes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B77B0637-86E6-4658-AB48-09E257204969}|AT_Proj1\\AT_Proj1.csproj|j:\\sstu_proj\\\u0441\u0433\u0442\u0443 6 \u0441\u0435\u043C\\\u0430\u0432\u0442\u043E\u043C\u0430\u0442\u044B\\at_proj1\\at_proj1\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{B77B0637-86E6-4658-AB48-09E257204969}|AT_Proj1\\AT_Proj1.csproj|j:\\sstu_proj\\\u0441\u0433\u0442\u0443 6 \u0441\u0435\u043C\\\u0430\u0432\u0442\u043E\u043C\u0430\u0442\u044B\\at_proj1\\at_proj1\\entertimes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{B77B0637-86E6-4658-AB48-09E257204969}|AT_Proj1\\AT_Proj1.csproj|solutionrelative:at_proj1\\entertimes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B77B0637-86E6-4658-AB48-09E257204969}|AT_Proj1\\AT_Proj1.csproj|j:\\sstu_proj\\\u0441\u0433\u0442\u0443 6 \u0441\u0435\u043C\\\u0430\u0432\u0442\u043E\u043C\u0430\u0442\u044B\\at_proj1\\at_proj1\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B77B0637-86E6-4658-AB48-09E257204969}|AT_Proj1\\AT_Proj1.csproj|solutionrelative:at_proj1\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B77B0637-86E6-4658-AB48-09E257204969}|AT_Proj1\\AT_Proj1.csproj|J:\\SSTU_Proj\\\u0421\u0413\u0422\u0423 6 \u0441\u0435\u043C\\\u0410\u0432\u0442\u043E\u043C\u0430\u0442\u044B\\AT_Proj1\\at_proj1\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{B77B0637-86E6-4658-AB48-09E257204969}|AT_Proj1\\AT_Proj1.csproj|solutionrelative:at_proj1\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B77B0637-86E6-4658-AB48-09E257204969}|AT_Proj1\\AT_Proj1.csproj|j:\\sstu_proj\\\u0441\u0433\u0442\u0443 6 \u0441\u0435\u043C\\\u0430\u0432\u0442\u043E\u043C\u0430\u0442\u044B\\at_proj1\\at_proj1\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B77B0637-86E6-4658-AB48-09E257204969}|AT_Proj1\\AT_Proj1.csproj|solutionrelative:at_proj1\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B77B0637-86E6-4658-AB48-09E257204969}|AT_Proj1\\AT_Proj1.csproj|j:\\sstu_proj\\\u0441\u0433\u0442\u0443 6 \u0441\u0435\u043C\\\u0430\u0432\u0442\u043E\u043C\u0430\u0442\u044B\\at_proj1\\at_proj1\\fsm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -22,11 +34,49 @@
       "DocumentGroups": [
         {
           "DockedWidth": 179,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "EnterTImes.cs",
+              "DocumentMoniker": "J:\\SSTU_Proj\\\u0421\u0413\u0422\u0423 6 \u0441\u0435\u043C\\\u0410\u0432\u0442\u043E\u043C\u0430\u0442\u044B\\AT_Proj1\\AT_Proj1\\EnterTImes.cs",
+              "RelativeDocumentMoniker": "AT_Proj1\\EnterTImes.cs",
+              "ToolTip": "J:\\SSTU_Proj\\\u0421\u0413\u0422\u0423 6 \u0441\u0435\u043C\\\u0410\u0432\u0442\u043E\u043C\u0430\u0442\u044B\\AT_Proj1\\AT_Proj1\\EnterTImes.cs",
+              "RelativeToolTip": "AT_Proj1\\EnterTImes.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAUwCEAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-22T18:45:14.839Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "EnterTImes.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "DocumentMoniker": "J:\\SSTU_Proj\\\u0421\u0413\u0422\u0423 6 \u0441\u0435\u043C\\\u0410\u0432\u0442\u043E\u043C\u0430\u0442\u044B\\AT_Proj1\\AT_Proj1\\EnterTImes.cs",
+              "RelativeDocumentMoniker": "AT_Proj1\\EnterTImes.cs",
+              "ToolTip": "J:\\SSTU_Proj\\\u0421\u0413\u0422\u0423 6 \u0441\u0435\u043C\\\u0410\u0432\u0442\u043E\u043C\u0430\u0442\u044B\\AT_Proj1\\AT_Proj1\\EnterTImes.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "RelativeToolTip": "AT_Proj1\\EnterTImes.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-22T18:39:02.229Z",
+              "EditorCaption": " [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "J:\\SSTU_Proj\\\u0421\u0413\u0422\u0423 6 \u0441\u0435\u043C\\\u0410\u0432\u0442\u043E\u043C\u0430\u0442\u044B\\AT_Proj1\\AT_Proj1\\Program.cs",
+              "RelativeDocumentMoniker": "AT_Proj1\\Program.cs",
+              "ToolTip": "J:\\SSTU_Proj\\\u0421\u0413\u0422\u0423 6 \u0441\u0435\u043C\\\u0410\u0432\u0442\u043E\u043C\u0430\u0442\u044B\\AT_Proj1\\AT_Proj1\\Program.cs",
+              "RelativeToolTip": "AT_Proj1\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-22T18:29:54.273Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Form1.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
               "DocumentMoniker": "J:\\SSTU_Proj\\\u0421\u0413\u0422\u0423 6 \u0441\u0435\u043C\\\u0410\u0432\u0442\u043E\u043C\u0430\u0442\u044B\\AT_Proj1\\AT_Proj1\\Form1.cs",
               "RelativeDocumentMoniker": "AT_Proj1\\Form1.cs",
@@ -38,26 +88,26 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "Form1.cs",
               "DocumentMoniker": "J:\\SSTU_Proj\\\u0421\u0413\u0422\u0423 6 \u0441\u0435\u043C\\\u0410\u0432\u0442\u043E\u043C\u0430\u0442\u044B\\AT_Proj1\\AT_Proj1\\Form1.cs",
               "RelativeDocumentMoniker": "AT_Proj1\\Form1.cs",
               "ToolTip": "J:\\SSTU_Proj\\\u0421\u0413\u0422\u0423 6 \u0441\u0435\u043C\\\u0410\u0432\u0442\u043E\u043C\u0430\u0442\u044B\\AT_Proj1\\AT_Proj1\\Form1.cs",
               "RelativeToolTip": "AT_Proj1\\Form1.cs",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAgwBgAAABHAAAAAAAAAA==",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAowDEAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-21T12:53:24.154Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "FSM.cs",
               "DocumentMoniker": "J:\\SSTU_Proj\\\u0421\u0413\u0422\u0423 6 \u0441\u0435\u043C\\\u0410\u0432\u0442\u043E\u043C\u0430\u0442\u044B\\AT_Proj1\\AT_Proj1\\FSM.cs",
               "RelativeDocumentMoniker": "AT_Proj1\\FSM.cs",
               "ToolTip": "J:\\SSTU_Proj\\\u0421\u0413\u0422\u0423 6 \u0441\u0435\u043C\\\u0410\u0432\u0442\u043E\u043C\u0430\u0442\u044B\\AT_Proj1\\AT_Proj1\\FSM.cs",
               "RelativeToolTip": "AT_Proj1\\FSM.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAC4AAAAjAAAAAAAAAA==",
+              "ViewState": "AgIAAB0AAAAAAAAAAAAwwCsAAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-21T12:29:52.391Z",
               "EditorCaption": ""

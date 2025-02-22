@@ -65,7 +65,7 @@
             // 
             // pictureBox3
             // 
-            pictureBox3.BackgroundImage = Properties.Resources.green;
+            pictureBox3.BackgroundImage = Properties.Resources.red_dop_1;
             pictureBox3.BackgroundImageLayout = ImageLayout.Stretch;
             pictureBox3.InitialImage = Properties.Resources.red;
             pictureBox3.Location = new Point(439, 236);
@@ -78,7 +78,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(140, 106);
+            label1.Location = new Point(12, 9);
             label1.Name = "label1";
             label1.Size = new Size(38, 15);
             label1.TabIndex = 3;
