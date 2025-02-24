@@ -1,0 +1,27 @@
+﻿1CV8LOG(ver 2.0)
+4d243faf-bfbd-459b-a960-800ea115ebe0
+
+{1,071523a4-516f-4fce-ba4b-0d11ab7a1893,"",1},
+{2,"DESKTOP-LSLU747",1},
+{3,"Designer",1},
+{4,"_$Session$_.Authentication",1},
+{13,1,1},
+{4,"_$Session$_.Start",2},
+{4,"_$InfoBase$_.ConfigUpdate",3},
+{4,"_$InfoBase$_.DBConfigUpdateStart",4},
+{4,"_$InfoBase$_.ExclusiveModeChange",5},
+{4,"_$InfoBase$_.PredefinedDataUpdate",6},
+{5,f4dbce96-80e7-426f-8790-c7a69c1eda56,"",1},
+{5,8ff96b23-5ad0-48cb-a890-4f98b14263a8,"",2},
+{4,"_$InfoBase$_.DBConfigUpdate",7},
+{4,"_$Access$_.Access",8},
+{3,"1CV8C",2},
+{4,"_$Transaction$_.Begin",9},
+{4,"_$Data$_.New",10},
+{5,f4dbce96-80e7-426f-8790-c7a69c1eda56,"Справочник.Должности",1},
+{4,"_$Transaction$_.Commit",11},
+{3,"BackgroundJob",3},
+{4,"_$Session$_.Finish",12},
+{5,8ff96b23-5ad0-48cb-a890-4f98b14263a8,"Справочник.Сотрудники",2},
+{5,e7d7c966-a228-45b6-b934-9d04e760d7d5,"Документ.ПриемНаРаботу",3},
+{4,"_$Data$_.Post",13}
