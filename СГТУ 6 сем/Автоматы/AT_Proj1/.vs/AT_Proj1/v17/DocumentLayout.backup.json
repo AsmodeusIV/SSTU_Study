@@ -7,7 +7,7 @@
       "RelativeMoniker": "D:0:0:{B77B0637-86E6-4658-AB48-09E257204969}|AT_Proj1\\AT_Proj1.csproj|solutionrelative:at_proj1\\entertimes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B77B0637-86E6-4658-AB48-09E257204969}|AT_Proj1\\AT_Proj1.csproj|j:\\sstu_proj\\\u0441\u0433\u0442\u0443 6 \u0441\u0435\u043C\\\u0430\u0432\u0442\u043E\u043C\u0430\u0442\u044B\\at_proj1\\at_proj1\\entertimes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{B77B0637-86E6-4658-AB48-09E257204969}|AT_Proj1\\AT_Proj1.csproj|J:\\SSTU_Proj\\\u0421\u0413\u0422\u0423 6 \u0441\u0435\u043C\\\u0410\u0432\u0442\u043E\u043C\u0430\u0442\u044B\\AT_Proj1\\at_proj1\\entertimes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{B77B0637-86E6-4658-AB48-09E257204969}|AT_Proj1\\AT_Proj1.csproj|solutionrelative:at_proj1\\entertimes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
@@ -34,8 +34,20 @@
       "DocumentGroups": [
         {
           "DockedWidth": 179,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 3,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{e8b06f53-6d01-11d2-aa7d-00c04f990343}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -44,7 +56,7 @@
               "RelativeDocumentMoniker": "AT_Proj1\\EnterTImes.cs",
               "ToolTip": "J:\\SSTU_Proj\\\u0421\u0413\u0422\u0423 6 \u0441\u0435\u043C\\\u0410\u0432\u0442\u043E\u043C\u0430\u0442\u044B\\AT_Proj1\\AT_Proj1\\EnterTImes.cs",
               "RelativeToolTip": "AT_Proj1\\EnterTImes.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAUwBwAAAAZAAAAAAAAAA==",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAACEAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-22T18:45:14.839Z",
               "EditorCaption": ""
@@ -58,8 +70,7 @@
               "ToolTip": "J:\\SSTU_Proj\\\u0421\u0413\u0422\u0423 6 \u0441\u0435\u043C\\\u0410\u0432\u0442\u043E\u043C\u0430\u0442\u044B\\AT_Proj1\\AT_Proj1\\EnterTImes.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
               "RelativeToolTip": "AT_Proj1\\EnterTImes.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-22T18:39:02.229Z",
-              "EditorCaption": " [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]"
+              "WhenOpened": "2025-02-22T18:39:02.229Z"
             },
             {
               "$type": "Document",
@@ -71,8 +82,7 @@
               "RelativeToolTip": "AT_Proj1\\Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-22T18:29:54.273Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-22T18:29:54.273Z"
             },
             {
               "$type": "Document",
@@ -83,8 +93,7 @@
               "ToolTip": "J:\\SSTU_Proj\\\u0421\u0413\u0422\u0423 6 \u0441\u0435\u043C\\\u0410\u0432\u0442\u043E\u043C\u0430\u0442\u044B\\AT_Proj1\\AT_Proj1\\Form1.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
               "RelativeToolTip": "AT_Proj1\\Form1.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-21T11:52:34.849Z",
-              "EditorCaption": " [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]"
+              "WhenOpened": "2025-02-21T11:52:34.849Z"
             },
             {
               "$type": "Document",
@@ -96,8 +105,7 @@
               "RelativeToolTip": "AT_Proj1\\Form1.cs",
               "ViewState": "AgIAAC0AAAAAAAAAAAAowDEAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-21T12:53:24.154Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-21T12:53:24.154Z"
             },
             {
               "$type": "Document",
@@ -109,8 +117,7 @@
               "RelativeToolTip": "AT_Proj1\\FSM.cs",
               "ViewState": "AgIAAB0AAAAAAAAAAAAwwCsAAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-21T12:29:52.391Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-21T12:29:52.391Z"
             }
           ]
         }
