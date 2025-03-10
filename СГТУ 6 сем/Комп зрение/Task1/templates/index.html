@@ -16,12 +16,16 @@
             var width = $('#width').val();
             var height = $('#height').val();
             var filename = "{{ uploaded_filename }}";
+            var xl = $('#xl').val();
+            var yl = $('#yl').val();
+            var xr = $('#xr').val();
+            var yr = $('#yr').val();
 
             if (filename) { //Check for valid filename before sending request
                 $.ajax({
                     type: "POST",
                     url: "/resize/" + filename,
-                    data: { width: width, height: height },
+                    data: { width: width, height: height, xl: xl,yr: yr,yl: yl,xr: xr },
                     success: function(response) {
                         $('#preview').attr('src', 'data:image/jpeg;base64,' + response.image);
                     },
@@ -31,6 +35,29 @@
                 });
             }
         }
+
+        function sliceImage() {
+            var filename = "{{ uploaded_filename }}";
+            var xl = $('#xl').val();
+            var yl = $('#yl').val();
+            var xr = $('#xr').val();
+            var yr = $('#yr').val();
+
+            if (filename) { //Check for valid filename before sending request
+                $.ajax({
+                    type: "POST",
+                    url: "/slice/" + filename,
+                    data: { width: width, height: height, xl: xl,yr: yr,yl: yl,xr: xr },
+                    success: function(response) {
+                        $('#preview').attr('src', 'data:image/jpeg;base64,' + response.image);
+                    },
+                    error: function(error) {
+                        console.error("Error resizing image:", error);
+                    }
+                });
+            }
+        }
+
     </script>
 </head>
 <body>
@@ -46,9 +73,18 @@
 <br>
         <input type="number" id="height" value="100"> Height 
 <br>
+<br><br><br>
+        <input type="number" id="xl" value="0"> x_left 
+<br>
+        <input type="number" id="yl" value="0"> y_left 
+<br>
+        <input type="number" id="xr" value="100"> x_right 
+<br>
+        <input type="number" id="yr" value="100"> y_right
+<br>
+<button onclick="sliceImage()">Slice Image</button>
         <img id="preview" src="{{ url_for('uploaded_file', filename=uploaded_filename) }}" alt="Preview">
  <br>
-<button id="reset">Reset to Original Size</button> 
     {% endif %}
 </body>
 </html>
