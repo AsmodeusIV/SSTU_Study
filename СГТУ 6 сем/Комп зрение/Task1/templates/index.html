@@ -1,90 +1,209 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Image Editor</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#width, #height').change(resizeImage);
-            //Initial resize if filename is available.
-            if ("{{ uploaded_filename }}") {
-                resizeImage();
-            }
-        });
-
-        function resizeImage() {
-            var width = $('#width').val();
-            var height = $('#height').val();
-            var filename = "{{ uploaded_filename }}";
-            var xl = $('#xl').val();
-            var yl = $('#yl').val();
-            var xr = $('#xr').val();
-            var yr = $('#yr').val();
-
-            if (filename) { //Check for valid filename before sending request
-                $.ajax({
-                    type: "POST",
-                    url: "/resize/" + filename,
-                    data: { width: width, height: height, xl: xl,yr: yr,yl: yl,xr: xr },
-                    success: function(response) {
-                        $('#preview').attr('src', 'data:image/jpeg;base64,' + response.image);
-                    },
-                    error: function(error) {
-                        console.error("Error resizing image:", error);
-                    }
-                });
-            }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Image Editor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
         }
-
-        function sliceImage() {
-            var filename = "{{ uploaded_filename }}";
-            var xl = $('#xl').val();
-            var yl = $('#yl').val();
-            var xr = $('#xr').val();
-            var yr = $('#yr').val();
-
-            if (filename) { //Check for valid filename before sending request
-                $.ajax({
-                    type: "POST",
-                    url: "/slice/" + filename,
-                    data: { width: width, height: height, xl: xl,yr: yr,yl: yl,xr: xr },
-                    success: function(response) {
-                        $('#preview').attr('src', 'data:image/jpeg;base64,' + response.image);
-                    },
-                    error: function(error) {
-                        console.error("Error resizing image:", error);
-                    }
-                });
-            }
+        .preview, .result {
+            margin: 20px 0;
         }
-
-    </script>
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        .controls {
+            margin: 20px 0;
+        }
+        .controls input, .controls select, .controls button {
+            margin: 5px;
+            padding: 5px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Image Editor</h1>
-    <form method="post" enctype="multipart/form-data">
-        <input type="file" name="file">
-        <input type="submit" value="Upload">
-    </form>
+    <div class="container">
+        <h1>Online Image Editor</h1>
+        <input type="file" id="fileInput" accept="image/*">
+        <div class="preview">
+            <img id="previewImage" src="" alt="Preview">
+        </div>
+        <div class="controls">
+            <h2>Resize</h2>
+            <label for="scaleFactor">Scale Factor:</label>
+            <input type="number" id="scaleFactor" step="0.1" value="1.0">
+            <label for="width">Width:</label>
+            <input type="number" id="width" placeholder="Width">
+            <label for="height">Height:</label>
+            <input type="number" id="height" placeholder="Height">
+            <label for="interpolation">Interpolation:</label>
+            <select id="interpolation">
+                <option value="auto">Auto</option>
+                <option value="nearest">Nearest Neighbor</option>
+                <option value="bilinear">Bilinear</option>
+                <option value="bicubic">Bicubic</option>
+            </select>
+        </div>
+        <div class="controls">
+            <h2>Crop</h2>
+            <label for="cropX">X:</label>
+            <input type="number" id="cropX" placeholder="X">
+            <label for="cropY">Y:</label>
+            <input type="number" id="cropY" placeholder="Y">
+            <label for="cropWidth">Width:</label>
+            <input type="number" id="cropWidth" placeholder="Width">
+            <label for="cropHeight">Height:</label>
+            <input type="number" id="cropHeight" placeholder="Height">
+            <button id="cropButton">Crop</button>
+        </div>
+        <div class="controls">
+            <h2>Mirror</h2>
+            <button id="mirrorHorizontal">Mirror Horizontal</button>
+            <button id="mirrorVertical">Mirror Vertical</button>
+            <button id="mirrorBoth">Mirror Both</button>
+        </div>
+        <div class="result">
+            <img id="resultImage" src="" alt="Result Image">
+        </div>
+    </div>
+    <script>
+        let currentImageUrl = ''; // Текущее изображение для применения изменений
+        let debounceTimeout;
 
-    {% if uploaded_filename %}
-        <br>
-<input type="number" id="width" value="100"> Width 
-<br>
-        <input type="number" id="height" value="100"> Height 
-<br>
-<br><br><br>
-        <input type="number" id="xl" value="0"> x_left 
-<br>
-        <input type="number" id="yl" value="0"> y_left 
-<br>
-        <input type="number" id="xr" value="100"> x_right 
-<br>
-        <input type="number" id="yr" value="100"> y_right
-<br>
-<button onclick="sliceImage()">Slice Image</button>
-        <img id="preview" src="{{ url_for('uploaded_file', filename=uploaded_filename) }}" alt="Preview">
- <br>
-    {% endif %}
+        // Загрузка изображения
+        document.getElementById('fileInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            const formData = new FormData();
+            formData.append('file', file);
+
+            fetch('/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    currentImageUrl = data.preview_url;
+                    document.getElementById('previewImage').src = currentImageUrl;
+                    document.getElementById('resultImage').src = currentImageUrl;
+                }
+            });
+        });
+
+        // Функция для отправки запроса на изменение размера
+        function resizeImage() {
+            const scaleFactor = document.getElementById('scaleFactor').value;
+            const width = document.getElementById('width').value;
+            const height = document.getElementById('height').value;
+            const interpolation = document.getElementById('interpolation').value;
+
+            fetch('/resize', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    scale_factor: scaleFactor,
+                    width: width,
+                    height: height,
+                    interpolation: interpolation
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    currentImageUrl = data.resized_url + '?t=' + new Date().getTime();
+                    document.getElementById('resultImage').src = currentImageUrl;
+                }
+            });
+        }
+
+        // Режим реального времени для изменения размера
+        document.getElementById('scaleFactor').addEventListener('input', function() {
+            clearTimeout(debounceTimeout);
+            debounceTimeout = setTimeout(resizeImage, 300); // Задержка 300 мс
+        });
+        document.getElementById('width').addEventListener('input', function() {
+            clearTimeout(debounceTimeout);
+            debounceTimeout = setTimeout(resizeImage, 300);
+        });
+        document.getElementById('height').addEventListener('input', function() {
+            clearTimeout(debounceTimeout);
+            debounceTimeout = setTimeout(resizeImage, 300);
+        });
+        document.getElementById('interpolation').addEventListener('change', resizeImage);
+
+        // Вырезка фрагмента
+        document.getElementById('cropButton').addEventListener('click', function() {
+            const x = document.getElementById('cropX').value;
+            const y = document.getElementById('cropY').value;
+            const width = document.getElementById('cropWidth').value;
+            const height = document.getElementById('cropHeight').value;
+
+            fetch('/crop', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    x: x,
+                    y: y,
+                    width: width,
+                    height: height
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    currentImageUrl = data.cropped_url + '?t=' + new Date().getTime();
+                    document.getElementById('resultImage').src = currentImageUrl;
+                }
+            });
+        });
+
+        // Зеркальное отражение
+        document.getElementById('mirrorHorizontal').addEventListener('click', function() {
+            mirrorImage('horizontal');
+        });
+        document.getElementById('mirrorVertical').addEventListener('click', function() {
+            mirrorImage('vertical');
+        });
+        document.getElementById('mirrorBoth').addEventListener('click', function() {
+            mirrorImage('both');
+        });
+
+        function mirrorImage(direction) {
+            fetch('/mirror', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    direction: direction
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    currentImageUrl = data.mirrored_url + '?t=' + new Date().getTime();
+                    document.getElementById('resultImage').src = currentImageUrl;
+                }
+            });
+        }
+    </script>
 </body>
 </html>
