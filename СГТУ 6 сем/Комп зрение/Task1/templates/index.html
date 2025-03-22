@@ -34,7 +34,7 @@
         <div class="preview">
             <img id="previewImage" src="" alt="Preview">
         </div>
-        <div class="controls">
+      <div class="controls">
             <h2>Resize</h2>
             <label for="scaleFactor">Scale Factor:</label>
             <input type="number" id="scaleFactor" step="0.1" value="1.0">
@@ -49,6 +49,7 @@
                 <option value="bilinear">Bilinear</option>
                 <option value="bicubic">Bicubic</option>
             </select>
+            <button id="resizeButton">Resize</button>
         </div>
         <div class="controls">
             <h2>Crop</h2>
@@ -67,16 +68,137 @@
             <button id="mirrorHorizontal">Mirror Horizontal</button>
             <button id="mirrorVertical">Mirror Vertical</button>
             <button id="mirrorBoth">Mirror Both</button>
+        </div>            <h2>Rotate</h2>
+            <label for="angle">Angle:</label>
+            <input type="number" id="angle" placeholder="Angle">
+            <label for="center_x">Center X:</label>
+            <input type="number" id="center_x" placeholder="Center X">
+            <label for="center_y">Center Y:</label>
+            <input type="number" id="center_y" placeholder="Center Y">
+            <button id="rotateButton">Rotate</button>
+        </div>
+        <div class="controls">
+            <h2>Brightness & Contrast</h2>
+            <label for="brightness">Brightness:</label>
+            <input type="number" id="brightness" placeholder="Brightness">
+            <label for="contrast">Contrast:</label>
+            <input type="number" id="contrast" step="0.1" placeholder="Contrast">
+            <button id="adjustBrightnessContrastButton">Adjust</button>
+        </div>
+        <div class="controls">
+            <h2>Color Balance</h2>
+            <label for="red">Red:</label>
+            <input type="number" id="red" step="0.1" placeholder="Red">
+            <label for="green">Green:</label>
+            <input type="number" id="green" step="0.1" placeholder="Green">
+            <label for="blue">Blue:</label>
+            <input type="number" id="blue" step="0.1" placeholder="Blue">
+            <button id="adjustColorBalanceButton">Adjust</button>
+        </div>
+        <div class="controls">
+            <h2>Add Noise</h2>
+            <select id="noiseType">
+                <option value="gaussian">Gaussian</option>
+                <option value="salt_pepper">Salt & Pepper</option>
+            </select>
+            <button id="addNoiseButton">Add Noise</button>
+        </div>
+        <div class="controls">
+            <h2>Blur</h2>
+            <select id="blurType">
+                <option value="average">Average</option>
+                <option value="gaussian">Gaussian</option>
+                <option value="median">Median</option>
+            </select>
+            <label for="kernelSize">Kernel Size:</label>
+            <input type="number" id="kernelSize" placeholder="Kernel Size">
+            <button id="blurButton">Blur</button>
         </div>
         <div class="result">
             <img id="resultImage" src="" alt="Result Image">
         </div>
+<div class="controls">
+    <h2>Save Image</h2>
+    <label for="format">Format:</label>
+    <select id="format">
+        <option value="jpeg">JPEG</option>
+        <option value="png">PNG</option>
+        <option value="tiff">TIFF</option>
+    </select>
+    <label for="quality">Quality (JPEG only):</label>
+    <input type="number" id="quality" min="0" max="100" value="95">
+    <button id="saveButton">Save Image</button>
+</div>
+<div class="controls">
+<br>
+<br>
+    <h2>Change Color Space</h2>
+    <select id="colorSpace">
+        <option value="rgb">RGB</option>
+        <option value="hsv">HSV</option>
+        <option value="grayscale">Grayscale</option>
+    </select>
+    <button id="changeColorSpaceButton">Change Color Space</button>
+</div>
+<div class="controls">
+    <h2>Find Object by HSV Color</h2>
+    <label for="hLow">H Low:</label>
+    <input type="number" id="hLow" min="0" max="179" value="25">
+    <label for="sLow">S Low:</label>
+    <input type="number" id="sLow" min="0" max="255" value="60">
+    <label for="vLow">V Low:</label>
+    <input type="number" id="vLow" min="0" max="255" value="80">
+    <label for="hHigh">H High:</label>
+    <input type="number" id="hHigh" min="0" max="179" value="60">
+    <label for="sHigh">S High:</label>
+    <input type="number" id="sHigh" min="0" max="255" value="255">
+    <label for="vHigh">V High:</label>
+    <input type="number" id="vHigh" min="0" max="255" value="255">
+    <label for="actionHSV">Action:</label>
+    <select id="actionHSV">
+        <option value="draw_box">Draw Box</option>
+        <option value="crop">Crop</option>
+    </select>
+    <button id="findObjectHSVButton">Find Object</button>
+</div>
     </div>
     <script>
         let currentImageUrl = ''; // Текущее изображение для применения изменений
-        let debounceTimeout;
 
-        // Загрузка изображения
+// Поиск объекта по цвету
+// Поиск объекта по цвету в HSV
+document.getElementById('findObjectHSVButton').addEventListener('click', function() {
+    const hLow = parseInt(document.getElementById('hLow').value);
+    const sLow = parseInt(document.getElementById('sLow').value);
+    const vLow = parseInt(document.getElementById('vLow').value);
+    const hHigh = parseInt(document.getElementById('hHigh').value);
+    const sHigh = parseInt(document.getElementById('sHigh').value);
+    const vHigh = parseInt(document.getElementById('vHigh').value);
+    const action = document.getElementById('actionHSV').value;
+
+    fetch('/find_object_by_hsv', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            color_low: [hLow, sLow, vLow],
+            color_high: [hHigh, sHigh, vHigh],
+            action: action,
+            image_url: currentImageUrl
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            alert(data.error);
+        } else {
+            currentImageUrl = data.result_url + '?t=' + new Date().getTime();
+            document.getElementById('resultImage').src = currentImageUrl;
+            console.log("Object coordinates:", data.coordinates);
+        }
+    });
+});        // Загрузка изображения
         document.getElementById('fileInput').addEventListener('change', function(event) {
             const file = event.target.files[0];
             const formData = new FormData();
@@ -114,7 +236,8 @@
                     scale_factor: scaleFactor,
                     width: width,
                     height: height,
-                    interpolation: interpolation
+                    interpolation: interpolation,
+                    image_url: currentImageUrl // Отправляем текущее изображение
                 })
             })
             .then(response => response.json())
@@ -128,23 +251,8 @@
             });
         }
 
-        // Режим реального времени для изменения размера
-        document.getElementById('scaleFactor').addEventListener('input', function() {
-            clearTimeout(debounceTimeout);
-            debounceTimeout = setTimeout(resizeImage, 300); // Задержка 300 мс
-        });
-        document.getElementById('width').addEventListener('input', function() {
-            clearTimeout(debounceTimeout);
-            debounceTimeout = setTimeout(resizeImage, 300);
-        });
-        document.getElementById('height').addEventListener('input', function() {
-            clearTimeout(debounceTimeout);
-            debounceTimeout = setTimeout(resizeImage, 300);
-        });
-        document.getElementById('interpolation').addEventListener('change', resizeImage);
-
         // Вырезка фрагмента
-        document.getElementById('cropButton').addEventListener('click', function() {
+        function cropImage() {
             const x = document.getElementById('cropX').value;
             const y = document.getElementById('cropY').value;
             const width = document.getElementById('cropWidth').value;
@@ -159,7 +267,8 @@
                     x: x,
                     y: y,
                     width: width,
-                    height: height
+                    height: height,
+                    image_url: currentImageUrl // Отправляем текущее изображение
                 })
             })
             .then(response => response.json())
@@ -171,19 +280,9 @@
                     document.getElementById('resultImage').src = currentImageUrl;
                 }
             });
-        });
+        }
 
         // Зеркальное отражение
-        document.getElementById('mirrorHorizontal').addEventListener('click', function() {
-            mirrorImage('horizontal');
-        });
-        document.getElementById('mirrorVertical').addEventListener('click', function() {
-            mirrorImage('vertical');
-        });
-        document.getElementById('mirrorBoth').addEventListener('click', function() {
-            mirrorImage('both');
-        });
-
         function mirrorImage(direction) {
             fetch('/mirror', {
                 method: 'POST',
@@ -191,7 +290,8 @@
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    direction: direction
+                    direction: direction,
+                    image_url: currentImageUrl // Отправляем текущее изображение
                 })
             })
             .then(response => response.json())
@@ -204,6 +304,202 @@
                 }
             });
         }
+
+        // Обработчики событий
+        document.getElementById('resizeButton').addEventListener('click', resizeImage);
+        document.getElementById('cropButton').addEventListener('click', cropImage);
+        document.getElementById('mirrorHorizontal').addEventListener('click', () => mirrorImage('horizontal'));
+        document.getElementById('mirrorVertical').addEventListener('click', () => mirrorImage('vertical'));
+        document.getElementById('mirrorBoth').addEventListener('click', () => mirrorImage('both'));
+        // Поворот изображения
+        document.getElementById('rotateButton').addEventListener('click', function() {
+            const angle = document.getElementById('angle').value;
+            const center_x = document.getElementById('center_x').value;
+            const center_y = document.getElementById('center_y').value;
+
+            fetch('/rotate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    angle: angle,
+                    center_x: center_x,
+                    center_y: center_y,
+                    image_url: currentImageUrl
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    currentImageUrl = data.rotated_url + '?t=' + new Date().getTime();
+                    document.getElementById('resultImage').src = currentImageUrl;
+                }
+            });
+        });
+
+        // Изменение яркости и контрастности
+        document.getElementById('adjustBrightnessContrastButton').addEventListener('click', function() {
+            const brightness = document.getElementById('brightness').value;
+            const contrast = document.getElementById('contrast').value;
+
+            fetch('/adjust_brightness_contrast', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    brightness: brightness,
+                    contrast: contrast,
+                    image_url: currentImageUrl
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    currentImageUrl = data.adjusted_url + '?t=' + new Date().getTime();
+                    document.getElementById('resultImage').src = currentImageUrl;
+                }
+            });
+        });
+
+        // Изменение цветового баланса
+        document.getElementById('adjustColorBalanceButton').addEventListener('click', function() {
+            const red = document.getElementById('red').value;
+            const green = document.getElementById('green').value;
+            const blue = document.getElementById('blue').value;
+
+            fetch('/adjust_color_balance', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    red: red,
+                    green: green,
+                    blue: blue,
+                    image_url: currentImageUrl
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    currentImageUrl = data.balanced_url + '?t=' + new Date().getTime();
+                    document.getElementById('resultImage').src = currentImageUrl;
+                }
+            });
+        });
+
+        // Добавление шума
+        document.getElementById('addNoiseButton').addEventListener('click', function() {
+            const noiseType = document.getElementById('noiseType').value;
+
+            fetch('/add_noise', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    noise_type: noiseType,
+                    image_url: currentImageUrl
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    currentImageUrl = data.noisy_url + '?t=' + new Date().getTime();
+                    document.getElementById('resultImage').src = currentImageUrl;
+                }
+            });
+        });
+
+        // Размытие изображения
+        document.getElementById('blurButton').addEventListener('click', function() {
+            const blurType = document.getElementById('blurType').value;
+            const kernelSize = document.getElementById('kernelSize').value;
+
+            fetch('/blur', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    blur_type: blurType,
+                    kernel_size: kernelSize,
+                    image_url: currentImageUrl
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    currentImageUrl = data.blurred_url + '?t=' + new Date().getTime();
+                    document.getElementById('resultImage').src = currentImageUrl;
+                }
+            });
+        });
+// Сохранение изображения
+document.getElementById('saveButton').addEventListener('click', function() {
+    const format = document.getElementById('format').value;
+    const quality = document.getElementById('quality').value;
+
+    fetch('/save', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            format: format,
+            quality: quality,
+            image_url: currentImageUrl
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            alert(data.error);
+        } else {
+            // Создаем ссылку для скачивания
+            const link = document.createElement('a');
+            link.href = data.saved_url;
+            link.download = `saved_image.${format}`;
+            link.click();
+        }
+    });
+});
+// Изменение цветового пространства
+document.getElementById('changeColorSpaceButton').addEventListener('click', function() {
+    const colorSpace = document.getElementById('colorSpace').value;
+
+    fetch('/change_color_space', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            color_space: colorSpace,
+            image_url: currentImageUrl
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            alert(data.error);
+        } else {
+            currentImageUrl = data.converted_url + '?t=' + new Date().getTime();
+            document.getElementById('resultImage').src = currentImageUrl;
+        }
+    });
+});	
     </script>
 </body>
 </html>
