@@ -34,7 +34,7 @@
         <div class="preview">
             <img id="previewImage" src="" alt="Preview">
         </div>
-      <div class="controls">
+      	<div class="controls">
             <h2>Resize</h2>
             <label for="scaleFactor">Scale Factor:</label>
             <input type="number" id="scaleFactor" step="0.1" value="1.0">
@@ -76,7 +76,6 @@
             <label for="center_y">Center Y:</label>
             <input type="number" id="center_y" placeholder="Center Y">
             <button id="rotateButton">Rotate</button>
-        </div>
         <div class="controls">
             <h2>Brightness & Contrast</h2>
             <label for="brightness">Brightness:</label>
@@ -162,8 +161,39 @@
     <button id="findObjectHSVButton">Find Object</button>
 </div>
     </div>
+        </div>
+
     <script>
         let currentImageUrl = ''; // Текущее изображение для применения изменений
+
+document.getElementById('rotateButton').addEventListener('click', function() {
+            const angle = document.getElementById('angle').value;
+            const center_x = document.getElementById('center_x').value;
+            const center_y = document.getElementById('center_y').value;
+
+            fetch('/rotate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    angle: angle,
+                    center_x: center_x,
+                    center_y: center_y,
+                    image_url: currentImageUrl
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    currentImageUrl = data.rotated_url + '?t=' + new Date().getTime();
+                    document.getElementById('resultImage').src = currentImageUrl;
+                }
+            });
+        });
+
 
 // Поиск объекта по цвету
 // Поиск объекта по цвету в HSV

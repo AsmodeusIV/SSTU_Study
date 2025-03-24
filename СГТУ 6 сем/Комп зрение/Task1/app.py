@@ -38,6 +38,33 @@ def upload_image():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+@app.route('/rotate', methods=['POST'])
+def rotate_image():
+    data = request.json
+    angle = float(data.get('angle', 0))
+    center_x = int(data.get('center_x', -1))
+    center_y = int(data.get('center_y', -1))
+    image_url = data.get('image_url', '')
+
+    image_path = os.path.join(app.config['UPLOAD_FOLDER'], 'preview.jpg')
+
+    image = cv2.imread(image_path)
+    if image is None:
+        return jsonify({'error': 'Image not found'}), 400
+
+    (h, w) = image.shape[:2]
+    if center_x == -1 or center_y == -1:
+        center_x, center_y = w // 2, h // 2
+
+    # Поворот изображения
+    M = cv2.getRotationMatrix2D((center_x, center_y), angle, 1.0)
+    rotated_image = cv2.warpAffine(image, M, (w, h), flags=cv2.INTER_LINEAR)
+
+    rotated_path = os.path.join(app.config['UPLOAD_FOLDER'], 'preview.jpg')
+    cv2.imwrite(rotated_path, rotated_image)
+
+    return jsonify({'rotated_url': f'/static/uploads/preview.jpg'})
+
 @app.route('/resize', methods=['POST'])
 def resize_image():
     data = request.json
@@ -138,11 +165,8 @@ def adjust_brightness_contrast():
     contrast = float(data.get('contrast', 1.0))
     image_url = data.get('image_url', '')
 
-    if image_url:
-        image_path = os.path.join(app.config['UPLOAD_FOLDER'], os.path.basename(image_url))
-    else:
-        image_path = os.path.join(app.config['UPLOAD_FOLDER'], 'preview.jpg')
     image_path = os.path.join(app.config['UPLOAD_FOLDER'], 'preview.jpg')
+
     image = cv2.imread(image_path)
     if image is None:
         return jsonify({'error': 'Image not found'}), 400
@@ -163,11 +187,8 @@ def adjust_color_balance():
     blue = float(data.get('blue', 1.0))
     image_url = data.get('image_url', '')
     
-    if image_url:
-        image_path = os.path.join(app.config['UPLOAD_FOLDER'], os.path.basename(image_url))
-    else:
-        image_path = os.path.join(app.config['UPLOAD_FOLDER'], 'preview.jpg')
     image_path = os.path.join(app.config['UPLOAD_FOLDER'], 'preview.jpg')
+
     image = cv2.imread(image_path)
     if image is None:
         return jsonify({'error': 'Image not found'}), 400
@@ -190,11 +211,8 @@ def add_noise():
     noise_type = data.get('noise_type', 'gaussian')
     image_url = data.get('image_url', '')
 
-    if image_url:
-        image_path = os.path.join(app.config['UPLOAD_FOLDER'], os.path.basename(image_url))
-    else:
-        image_path = os.path.join(app.config['UPLOAD_FOLDER'], 'preview.jpg')
     image_path = os.path.join(app.config['UPLOAD_FOLDER'], 'preview.jpg')
+
     image = cv2.imread(image_path)
     if image is None:
         return jsonify({'error': 'Image not found'}), 400
@@ -230,10 +248,6 @@ def save_image():
     quality = int(data.get('quality', 95))  # Качество для JPEG (0-100)
     image_url = data.get('image_url', '')
 
-    if image_url:
-        image_path = os.path.join(app.config['UPLOAD_FOLDER'], os.path.basename(image_url))
-    else:
-        image_path = os.path.join(app.config['UPLOAD_FOLDER'], 'preview.jpg')
     image_path = os.path.join(app.config['UPLOAD_FOLDER'], 'preview.jpg')
     image = cv2.imread(image_path)
     if image is None:
@@ -268,10 +282,6 @@ def blur_image():
     kernel_size = int(data.get('kernel_size', 5))
     image_url = data.get('image_url', '')
 
-    if image_url:
-        image_path = os.path.join(app.config['UPLOAD_FOLDER'], os.path.basename(image_url))
-    else:
-        image_path = os.path.join(app.config['UPLOAD_FOLDER'], 'preview.jpg')
     image_path = os.path.join(app.config['UPLOAD_FOLDER'], 'preview.jpg')
     image = cv2.imread(image_path)
     if image is None:
@@ -302,10 +312,6 @@ def change_color_space():
     color_space = data.get('color_space', 'rgb')  # rgb, hsv, grayscale
     image_url = data.get('image_url', '')
 
-    if image_url:
-        image_path = os.path.join(app.config['UPLOAD_FOLDER'], os.path.basename(image_url))
-    else:
-        image_path = os.path.join(app.config['UPLOAD_FOLDER'], 'preview.jpg')
     image_path = os.path.join(app.config['UPLOAD_FOLDER'], 'preview.jpg')
     image = cv2.imread(image_path)
     if image is None:
@@ -331,7 +337,7 @@ def find_object_by_hsv():
     color_high = tuple(data.get('color_high', [60, 255, 255]))  # Верхняя граница HSV
     action = data.get('action', 'draw_box')  # draw_box или crop
     image_url = data.get('image_url', '')
-
+    print(color_low, color_high )
     image_path = os.path.join(app.config['UPLOAD_FOLDER'], 'preview.jpg')
 
     image = cv2.imread(image_path)
