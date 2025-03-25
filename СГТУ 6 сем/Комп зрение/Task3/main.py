@@ -35,7 +35,8 @@ cv2.imshow('SIFT Keypoints', img_sift)
 
 orb = cv2.ORB_create()
 kp_orb, des_orb = orb.detectAndCompute(gray, None)
-img_orb = cv2.drawKeypoints(img, kp_orb, None, flags=cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
+img_orb = cv2.drawKeypoints(img, kp_orb, None )
+"""flags=cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS"""
 cv2.imshow('ORB Keypoints', img_orb)
 
 
