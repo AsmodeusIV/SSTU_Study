@@ -115,6 +115,9 @@
         </div>
         <div class="result">
             <img id="resultImage" src="" alt="Result Image">
+<div class="controls">
+    <button id="reset1Button">Reset to Original</button>
+</div>
         </div>
 <div class="controls">
     <h2>Save Image</h2>
@@ -161,10 +164,180 @@
     <button id="findObjectHSVButton">Find Object</button>
 </div>
     </div>
+<div class="controls">
+    <h2>Thresholding</h2>
+    <label for="thresholdValue">Threshold Value:</label>
+    <input type="number" id="thresholdValue" min="0" max="255" value="127">
+    <label for="maxValue">Max Value:</label>
+    <input type="number" id="maxValue" min="0" max="255" value="255">
+    <label for="thresholdType">Type:</label>
+    <select id="thresholdType">
+        <option value="binary">Binary</option>
+        <option value="binary_inv">Binary Inverse</option>
+        <option value="trunc">Truncate</option>
+        <option value="tozero">To Zero</option>
+        <option value="tozero_inv">To Zero Inverse</option>
+    </select>
+    <button id="thresholdButton">Apply Threshold</button>
+</div>
+
+<div class="controls">
+    <h2>Adaptive Thresholding</h2>
+    <label for="adaptiveMaxValue">Max Value:</label>
+    <input type="number" id="adaptiveMaxValue" min="0" max="255" value="255">
+    <label for="adaptiveMethod">Method:</label>
+    <select id="adaptiveMethod">
+        <option value="mean">Mean</option>
+        <option value="gaussian">Gaussian</option>
+    </select>
+    <label for="adaptiveType">Type:</label>
+    <select id="adaptiveType">
+        <option value="binary">Binary</option>
+        <option value="binary_inv">Binary Inverse</option>
+    </select>
+    <label for="blockSize">Block Size:</label>
+    <input type="number" id="blockSize" min="3" max="255" step="2" value="11">
+    <label for="constant">Constant:</label>
+    <input type="number" id="constant" min="-255" max="255" value="2">
+    <button id="adaptiveThresholdButton">Apply Adaptive Threshold</button>
+</div>
+
+<div class="controls">
+    <h2>Edge Detection</h2>
+    <select id="edgeMethod">
+        <option value="canny">Canny</option>
+        <option value="sobel">Sobel</option>
+    </select>
+    <label for="threshold1">Threshold1 (Canny):</label>
+    <input type="number" id="threshold1" min="0" max="1000" value="100">
+    <label for="threshold2">Threshold2 (Canny):</label>
+    <input type="number" id="threshold2" min="0" max="1000" value="200">
+    <label for="apertureSize">Aperture Size (Canny):</label>
+    <input type="number" id="apertureSize" min="3" max="7" step="2" value="3">
+    <label for="sobelKernel">Kernel Size (Sobel):</label>
+    <input type="number" id="sobelKernel" min="1" max="31" step="2" value="3">
+    <button id="edgeDetectionButton">Detect Edges</button>
+</div>
         </div>
 
     <script>
-        let currentImageUrl = ''; // Текущее изображение для применения изменений
+let currentImageUrl = ''; // Текущее изображение для применения изменений
+let originalImageUrl = ''; // Оригинальное изображение
+
+// Сброс к исходному изображению
+document.getElementById('reset1Button').addEventListener('click', function() {
+    fetch('/reset_image', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({})
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            alert(data.error);
+        } else {
+            currentImageUrl = data.reset_url + '?t=' + new Date().getTime();
+            document.getElementById('resultImage').src = currentImageUrl;
+        }
+    });
+});
+
+// Пороговая обработка
+document.getElementById('thresholdButton').addEventListener('click', function() {
+    const thresholdValue = document.getElementById('thresholdValue').value;
+    const maxValue = document.getElementById('maxValue').value;
+    const thresholdType = document.getElementById('thresholdType').value;
+
+    fetch('/threshold', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            threshold_value: thresholdValue,
+            max_value: maxValue,
+            threshold_type: thresholdType,
+            image_url: currentImageUrl
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            alert(data.error);
+        } else {
+            currentImageUrl = data.thresholded_url + '?t=' + new Date().getTime();
+            document.getElementById('resultImage').src = currentImageUrl;
+        }
+    });
+});
+
+// Адаптивная пороговая обработка
+document.getElementById('adaptiveThresholdButton').addEventListener('click', function() {
+    const maxValue = document.getElementById('adaptiveMaxValue').value;
+    const adaptiveMethod = document.getElementById('adaptiveMethod').value;
+    const thresholdType = document.getElementById('adaptiveType').value;
+    const blockSize = document.getElementById('blockSize').value;
+    const constant = document.getElementById('constant').value;
+
+    fetch('/adaptive_threshold', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            max_value: maxValue,
+            adaptive_method: adaptiveMethod,
+            threshold_type: thresholdType,
+            block_size: blockSize,
+            constant: constant,
+            image_url: currentImageUrl
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            alert(data.error);
+        } else {
+            currentImageUrl = data.thresholded_url + '?t=' + new Date().getTime();
+            document.getElementById('resultImage').src = currentImageUrl;
+        }
+    });
+});
+
+// Детекция границ
+document.getElementById('edgeDetectionButton').addEventListener('click', function() {
+    const method = document.getElementById('edgeMethod').value;
+    const threshold1 = document.getElementById('threshold1').value;
+    const threshold2 = document.getElementById('threshold2').value;
+    const apertureSize = document.getElementById('apertureSize').value;
+    const sobelKernel = document.getElementById('sobelKernel').value;
+
+    fetch('/edge_detection', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            method: method,
+            threshold1: threshold1,
+            threshold2: threshold2,
+            aperture_size: apertureSize,
+            sobel_kernel: sobelKernel,
+            image_url: currentImageUrl
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            alert(data.error);
+        } else {
+            currentImageUrl = data.edges_url + '?t=' + new Date().getTime();
+            document.getElementById('resultImage').src = currentImageUrl;
+        }
+    });
+});
 
 document.getElementById('rotateButton').addEventListener('click', function() {
             const angle = document.getElementById('angle').value;
@@ -230,26 +403,26 @@ document.getElementById('findObjectHSVButton').addEventListener('click', functio
     });
 });        // Загрузка изображения
         document.getElementById('fileInput').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            const formData = new FormData();
-            formData.append('file', file);
+    const file = event.target.files[0];
+    const formData = new FormData();
+    formData.append('file', file);
 
-            fetch('/upload', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.error) {
-                    alert(data.error);
-                } else {
-                    currentImageUrl = data.preview_url;
-                    document.getElementById('previewImage').src = currentImageUrl;
-                    document.getElementById('resultImage').src = currentImageUrl;
-                }
-            });
-        });
-
+    fetch('/upload', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            alert(data.error);
+        } else {
+            currentImageUrl = data.preview_url;
+            originalImageUrl = data.original_url; // Сохраняем URL оригинала
+            document.getElementById('previewImage').src = currentImageUrl;
+            document.getElementById('resultImage').src = currentImageUrl;
+        }
+    });
+});
         // Функция для отправки запроса на изменение размера
         function resizeImage() {
             const scaleFactor = document.getElementById('scaleFactor').value;

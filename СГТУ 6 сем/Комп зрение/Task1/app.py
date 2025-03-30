@@ -23,18 +23,23 @@ def upload_image():
     if file.filename == '':
         return jsonify({'error': 'No file selected'}), 400
 
-    filepath = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
-    file.save(filepath)
+    # Сохраняем оригинал
+    original_path = os.path.join(app.config['UPLOAD_FOLDER'], 'original.jpg')
+    file.save(original_path)
 
     try:
-        image = cv2.imread(filepath)
+        image = cv2.imread(original_path)
         if image is None:
             return jsonify({'error': 'Unsupported or corrupted file'}), 400
 
+        # Создаем превью (рабочую копию)
         preview_path = os.path.join(app.config['UPLOAD_FOLDER'], 'preview.jpg')
         cv2.imwrite(preview_path, image)
 
-        return jsonify({'preview_url': f'/static/uploads/preview.jpg'})
+        return jsonify({
+            'preview_url': f'/static/uploads/preview.jpg',
+            'original_url': f'/static/uploads/original.jpg'
+        })
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
@@ -64,6 +69,21 @@ def rotate_image():
     cv2.imwrite(rotated_path, rotated_image)
 
     return jsonify({'rotated_url': f'/static/uploads/preview.jpg'})
+
+@app.route('/reset_image', methods=['POST'])
+def reset_image():
+    original_path = os.path.join(app.config['UPLOAD_FOLDER'], 'original.jpg')
+    preview_path = os.path.join(app.config['UPLOAD_FOLDER'], 'preview.jpg')
+    
+    # Проверяем существует ли оригинальное изображение
+    if not os.path.exists(original_path):
+        return jsonify({'error': 'Original image not found'}), 400
+    
+    # Копируем оригинал в preview
+    import shutil
+    shutil.copyfile(original_path, preview_path)
+    
+    return jsonify({'reset_url': f'/static/uploads/preview.jpg'})
 
 @app.route('/resize', methods=['POST'])
 def resize_image():
@@ -376,4 +396,112 @@ def find_object_by_hsv():
         cv2.imwrite(result_path, output_image)
         return jsonify({'result_url': f'/static/uploads/preview.jpg', 'coordinates': [x, y, w, h]})
     
+    
+@app.route('/threshold', methods=['POST'])
+def apply_threshold():
+    data = request.json
+    threshold_value = int(data.get('threshold_value', 127))
+    max_value = int(data.get('max_value', 255))
+    threshold_type = data.get('threshold_type', 'binary')
+    image_url = data.get('image_url', '')
+
+    image_path = os.path.join(app.config['UPLOAD_FOLDER'], 'preview.jpg')
+    image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
+    if image is None:
+        return jsonify({'error': 'Image not found'}), 400
+
+    # Определяем тип порога
+    if threshold_type == 'binary':
+        thresh_type = cv2.THRESH_BINARY
+    elif threshold_type == 'binary_inv':
+        thresh_type = cv2.THRESH_BINARY_INV
+    elif threshold_type == 'trunc':
+        thresh_type = cv2.THRESH_TRUNC
+    elif threshold_type == 'tozero':
+        thresh_type = cv2.THRESH_TOZERO
+    elif threshold_type == 'tozero_inv':
+        thresh_type = cv2.THRESH_TOZERO_INV
+    else:
+        return jsonify({'error': 'Invalid threshold type'}), 400
+
+    # Применяем пороговую обработку
+    _, thresholded = cv2.threshold(image, threshold_value, max_value, thresh_type)
+
+    thresholded_path = os.path.join(app.config['UPLOAD_FOLDER'], 'preview.jpg')
+    cv2.imwrite(thresholded_path, thresholded)
+
+    return jsonify({'thresholded_url': f'/static/uploads/preview.jpg'})
+
+@app.route('/adaptive_threshold', methods=['POST'])
+def apply_adaptive_threshold():
+    data = request.json
+    max_value = int(data.get('max_value', 255))
+    adaptive_method = data.get('adaptive_method', 'mean')
+    threshold_type = data.get('threshold_type', 'binary')
+    block_size = int(data.get('block_size', 11))
+    constant = int(data.get('constant', 2))
+    image_url = data.get('image_url', '')
+
+    image_path = os.path.join(app.config['UPLOAD_FOLDER'], 'preview.jpg')
+    image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
+    if image is None:
+        return jsonify({'error': 'Image not found'}), 400
+
+    # Определяем метод адаптации
+    if adaptive_method == 'mean':
+        adapt_method = cv2.ADAPTIVE_THRESH_MEAN_C
+    elif adaptive_method == 'gaussian':
+        adapt_method = cv2.ADAPTIVE_THRESH_GAUSSIAN_C
+    else:
+        return jsonify({'error': 'Invalid adaptive method'}), 400
+
+    # Определяем тип порога
+    if threshold_type == 'binary':
+        thresh_type = cv2.THRESH_BINARY
+    elif threshold_type == 'binary_inv':
+        thresh_type = cv2.THRESH_BINARY_INV
+    else:
+        return jsonify({'error': 'Invalid threshold type'}), 400
+
+    # Применяем адаптивную пороговую обработку
+    thresholded = cv2.adaptiveThreshold(image, max_value, adapt_method, 
+                                      thresh_type, block_size, constant)
+
+    thresholded_path = os.path.join(app.config['UPLOAD_FOLDER'], 'preview.jpg')
+    cv2.imwrite(thresholded_path, thresholded)
+
+    return jsonify({'thresholded_url': f'/static/uploads/preview.jpg'})
+
+@app.route('/edge_detection', methods=['POST'])
+def edge_detection():
+    data = request.json
+    method = data.get('method', 'canny')
+    threshold1 = int(data.get('threshold1', 100))
+    threshold2 = int(data.get('threshold2', 200))
+    aperture_size = int(data.get('aperture_size', 3))
+    sobel_kernel = int(data.get('sobel_kernel', 3))
+    image_url = data.get('image_url', '')
+
+    image_path = os.path.join(app.config['UPLOAD_FOLDER'], 'preview.jpg')
+    image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
+    if image is None:
+        return jsonify({'error': 'Image not found'}), 400
+
+    if method == 'canny':
+        # Детектор границ Кэнни
+        edges = cv2.Canny(image, threshold1, threshold2, apertureSize=aperture_size)
+    elif method == 'sobel':
+        # Оператор Собеля
+        sobel_x = cv2.Sobel(image, cv2.CV_64F, 1, 0, ksize=sobel_kernel)
+        sobel_y = cv2.Sobel(image, cv2.CV_64F, 0, 1, ksize=sobel_kernel)
+        edges = cv2.magnitude(sobel_x, sobel_y)
+        edges = cv2.normalize(edges, None, 0, 255, cv2.NORM_MINMAX, cv2.CV_8U)
+    else:
+        return jsonify({'error': 'Invalid edge detection method'}), 400
+
+    edges_path = os.path.join(app.config['UPLOAD_FOLDER'], 'preview.jpg')
+    cv2.imwrite(edges_path, edges)
+
+    return jsonify({'edges_url': f'/static/uploads/preview.jpg'})
+
 app.run(port=80)
