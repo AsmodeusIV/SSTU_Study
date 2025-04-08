@@ -25,23 +25,6 @@
             margin: 5px;
             padding: 5px;
         }
-.algorithm-params {
-    margin: 10px 0;
-    padding: 10px;
-    background-color: #f5f5f5;
-    border-radius: 5px;
-}
-
-.algorithm-params label {
-    display: inline-block;
-    width: 150px;
-    margin-right: 10px;
-}
-
-.algorithm-params input {
-    width: 80px;
-    margin-right: 20px;
-}
     </style>
 </head>
 <body>
@@ -237,118 +220,10 @@
 </div>
         </div>
 
-<div class="controls">
-    <h2>Image Segmentation</h2>
-    <select id="segmentationAlgorithm">
-        <option value="kmeans">K-Means Clustering</option>
-        <option value="meanshift">Mean Shift</option>
-        <option value="dbscan">DBSCAN</option>
-        <option value="active_contour">Active Contour</option>
-    </select>
-    
-    <div id="kmeansParams" class="algorithm-params">
-        <label for="kmeansK">Number of clusters (K):</label>
-        <input type="number" id="kmeansK" min="2" max="20" value="3">
-        <label for="kmeansMaxIter">Max iterations:</label>
-        <input type="number" id="kmeansMaxIter" min="1" max="500" value="100">
-    </div>
-    
-    <div id="meanshiftParams" class="algorithm-params" style="display:none;">
-        <label for="meanshiftQuantile">Quantile:</label>
-        <input type="number" id="meanshiftQuantile" step="0.01" min="0.01" max="1.0" value="0.1">
-        <label for="meanshiftNSamples">N Samples:</label>
-        <input type="number" id="meanshiftNSamples" min="100" max="10000" value="1000">
-    </div>
-    
-    <div id="dbscanParams" class="algorithm-params" style="display:none;">
-        <label for="dbscanEps">EPS:</label>
-        <input type="number" id="dbscanEps" step="0.1" min="0.1" max="10.0" value="0.5">
-        <label for="dbscanMinSamples">Min Samples:</label>
-        <input type="number" id="dbscanMinSamples" min="1" max="1000" value="100">
-    </div>
-    
-    <div id="activeContourParams" class="algorithm-params" style="display:none;">
-        <label for="activeContourIterations">Iterations:</label>
-        <input type="number" id="activeContourIterations" min="1" max="1000" value="100">
-        <label for="activeContourAlpha">Alpha:</label>
-        <input type="number" id="activeContourAlpha" step="0.001" min="0" max="1" value="0.015">
-        <label for="activeContourBeta">Beta:</label>
-        <input type="number" id="activeContourBeta" min="0" max="100" value="10">
-        <label for="activeContourGamma">Gamma:</label>
-        <input type="number" id="activeContourGamma" step="0.001" min="0" max="1" value="0.001">
-    </div>
-    
-    <button id="segmentButton">Apply Segmentation</button>
-</div>
-
     <script>
 let currentImageUrl = ''; // Текущее изображение для применения изменений
 let originalImageUrl = ''; // Оригинальное изображение
 
-// Показываем/скрываем параметры в зависимости от выбранного алгоритма
-document.getElementById('segmentationAlgorithm').addEventListener('change', function() {
-    const algorithm = this.value;
-    document.querySelectorAll('.algorithm-params').forEach(el => {
-        el.style.display = 'none';
-    });
-    document.getElementById(`${algorithm}Params`).style.display = 'block';
-});
-
-// Обработка сегментации
-document.getElementById('segmentButton').addEventListener('click', function() {
-    const algorithm = document.getElementById('segmentationAlgorithm').value;
-    let params = {};
-    
-    switch(algorithm) {
-        case 'kmeans':
-            params = {
-                k: parseInt(document.getElementById('kmeansK').value),
-                max_iter: parseInt(document.getElementById('kmeansMaxIter').value)
-            };
-            break;
-        case 'meanshift':
-            params = {
-                quantile: parseFloat(document.getElementById('meanshiftQuantile').value),
-                n_samples: parseInt(document.getElementById('meanshiftNSamples').value)
-            };
-            break;
-        case 'dbscan':
-            params = {
-                eps: parseFloat(document.getElementById('dbscanEps').value),
-                min_samples: parseInt(document.getElementById('dbscanMinSamples').value)
-            };
-            break;
-        case 'active_contour':
-            params = {
-                iterations: parseInt(document.getElementById('activeContourIterations').value),
-                alpha: parseFloat(document.getElementById('activeContourAlpha').value),
-                beta: parseFloat(document.getElementById('activeContourBeta').value),
-                gamma: parseFloat(document.getElementById('activeContourGamma').value)
-            };
-            break;
-    }
-    
-    fetch('/segment_image', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            algorithm: algorithm,
-            params: params,
-            image_url: currentImageUrl
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.error) {
-            alert(data.error);
-        } else {
-            currentImageUrl = data.segmented_url + '?t=' + new Date().getTime();
-            document.getElementById('resultImage').src = currentImageUrl;
-        }
-    });
-});
 // Сброс к исходному изображению
 document.getElementById('reset1Button').addEventListener('click', function() {
     fetch('/reset_image', {
