@@ -16,8 +16,8 @@ def load_data(train_path, test_path):
     
     return X_train, y_train, X_test, y_test
 
-train_path = "C:\\Users\\admin\\Desktop\\data\\fashion-mnist_train.csv"
-test_path = "C:\\Users\\admin\\Desktop\\data\\fashion-mnist_test.csv"
+train_path = "C:\\Users\\admin\\Desktop\\data\\mnist_train.csv"
+test_path = "C:\\Users\\admin\\Desktop\\data\\mnist_test.csv"
 X_train, y_train, X_test, y_test = load_data(train_path, test_path)
 
 def extract_sift_features(images):
