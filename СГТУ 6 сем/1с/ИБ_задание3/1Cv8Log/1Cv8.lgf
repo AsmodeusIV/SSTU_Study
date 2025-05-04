@@ -50,4 +50,12 @@
 {5,9568c502-4bc7-4b69-b63f-d1bff1225179,"РегистрСведений.КурсВалют",15},
 {5,a4991009-4fcf-4ef1-a52a-35ea7288e5f2,"Документ.КадровыйПриказ",16},
 {4,"_$Session$_.ExternalDataProcessorConnectError",19},
-{4,"_$Session$_.ExternalDataProcessorConnect",20}
+{4,"_$Session$_.ExternalDataProcessorConnect",20},
+{5,4e1f1cbe-c400-463c-bb58-0dca8823ae53,"Документ.ПриходнаяНакладная",17},
+{5,72dccfaf-f8dd-4367-89af-afd8bd712457,"Документ.ПоступлениеДенежныхСредств",18},
+{4,"_$User$_.NewError",21},
+{4,"_$User$_.New",22},
+{4,"_$Session$_.AuthenticationError",23},
+{1,8f172d15-ecd4-4dcc-ad30-ba099c603a3f,"Вася Продавец",2},
+{13,1,2},
+{4,"_$Access$_.AccessDenied",24}
