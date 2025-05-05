@@ -58,4 +58,7 @@
 {4,"_$Session$_.AuthenticationError",23},
 {1,8f172d15-ecd4-4dcc-ad30-ba099c603a3f,"Вася Продавец",2},
 {13,1,2},
-{4,"_$Access$_.AccessDenied",24}
+{4,"_$Access$_.AccessDenied",24},
+{1,7c48eaed-6e8a-42a9-9afd-c4391566e622,"Коля Админ",3},
+{13,1,3},
+{4,"_$InfoBase$_.DBConfigUpdateError",25}
