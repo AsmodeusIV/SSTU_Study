@@ -1,62 +1,48 @@
 import tensorflow as tf
-from tensorflow import keras
-from tensorflow.keras.layers import Dense, Flatten
-import matplotlib.pyplot as plt
+from tensorflow.keras import layers, models
+import pandas as pd
+import numpy as np
 
-# 1. Загрузка и предобработка данных MNIST
-(x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data()
+# Загрузка данных
+train_df = pd.read_csv("..\\..\\..\\data\\sign_mnist_train.csv")
+test_df = pd.read_csv("..\\..\\..\\data\\sign_mnist_test.csv")
 
-# Нормализация пикселей (0-1)
-x_train = x_train.astype("float32") / 255.0
-x_test = x_test.astype("float32") / 255.0
+# Выбор 5 классов (A, B, C, D, E)
+selected_labels = [0, 1, 2, 3, 4]
+train_df = train_df[train_df['label'].isin(selected_labels)]
+test_df = test_df[test_df['label'].isin(selected_labels)]
 
-# Создание массива меток классов
-y_train = keras.utils.to_categorical(y_train, num_classes=10)
-y_test = keras.utils.to_categorical(y_test, num_classes=10)
+# Разделение на признаки и метки
+y_train = train_df['label'].values
+y_test = test_df['label'].values
+X_train = train_df.drop('label', axis=1).values.reshape(-1, 28, 28, 1)
+X_test = test_df.drop('label', axis=1).values.reshape(-1, 28, 28, 1)
 
-# 2. Построение модели
-model = keras.Sequential([
-    Flatten(input_shape=(28, 28)), # Преобразование 2D изображения в 1D вектор
-    Dense(16, activation='relu'), # Полносвязный слой с 128 нейронами и ReLU активацией
-    Dense(10, activation='softmax') # Выходной слой с 10 нейронами (для 10 цифр) и softmax активацией
+# Нормализация
+X_train = X_train / 255.0
+X_test = X_test / 255.0
+
+model = models.Sequential([
+    layers.Conv2D(32, (3, 3), activation='relu', input_shape=(28, 28, 1)),
+    layers.BatchNormalization(),
+    layers.MaxPooling2D((2, 2)),
+    layers.Conv2D(64, (3, 3), activation='relu'),
+    layers.BatchNormalization(),
+    layers.MaxPooling2D((2, 2)),
+    layers.Conv2D(128, (3, 3), activation='relu'),
+    layers.BatchNormalization(),
+    layers.Flatten(),
+    layers.Dense(128, activation='relu'),
+    layers.Dropout(0.5),
+    layers.Dense(5, activation='softmax')
 ])
 
-# 3. Компиляция модели
-model.compile(
-    optimizer='adam', # Оптимизатор Adam 
-    loss='categorical_crossentropy', # Функция потерь для многоклассовой классификации
-    metrics=['accuracy'] # Метрика для оценки качества - точность
-)
+model.compile(optimizer='adam',
+              loss='sparse_categorical_crossentropy',
+              metrics=['accuracy'])
 
-# 4. Обучение модели
-history = model.fit(
-    x_train, y_train,
-    epochs=10, # Количество эпох обучения
-    batch_size=32, # Размер батча
-    validation_split=0.1 # 10% данных для валидации (контроль переобучения)
-)
+history = model.fit(X_train, y_train, epochs=10, validation_data=(X_test, y_test))
 
-# 5. Оценка модели
-loss, accuracy = model.evaluate(x_test, y_test)
-print(f"Loss: {loss}, Accuracy: {accuracy}")
-
-# Вывод результатов обучения
-plt.figure(figsize=(12, 4))
-
-plt.subplot(1, 2, 1)
-plt.plot(history.history['accuracy'], label='Training Accuracy')
-plt.plot(history.history['val_accuracy'], label='Validation Accuracy')
-plt.xlabel('Epoch')
-plt.ylabel('Accuracy')
-plt.legend()
-plt.title('Training and Validation Accuracy')
-
-plt.subplot(1, 2, 2)
-plt.plot(history.history['loss'], label='Training Loss')
-plt.plot(history.history['val_loss'], label='Validation Loss')
-plt.xlabel('Epoch')
-plt.ylabel('Loss')
-plt.legend()
-plt.title('Training and Validation Loss')
-
-plt.show()
+# TensorFlow
+test_loss, test_acc = model.evaluate(X_test, y_test, verbose=2)
+print(f"Test accuracy: {test_acc}")
