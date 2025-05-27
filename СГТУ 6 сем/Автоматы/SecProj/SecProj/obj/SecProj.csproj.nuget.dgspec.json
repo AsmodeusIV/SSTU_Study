@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "J:\\SSTU_Proj\\СГТУ 6 сем\\Автоматы\\SecProj\\SecProj\\SecProj.csproj": {}
+    "M:\\SSTU_Study\\СГТУ 6 сем\\Автоматы\\SecProj\\SecProj\\SecProj.csproj": {}
   },
   "projects": {
-    "J:\\SSTU_Proj\\СГТУ 6 сем\\Автоматы\\SecProj\\SecProj\\SecProj.csproj": {
+    "M:\\SSTU_Study\\СГТУ 6 сем\\Автоматы\\SecProj\\SecProj\\SecProj.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "J:\\SSTU_Proj\\СГТУ 6 сем\\Автоматы\\SecProj\\SecProj\\SecProj.csproj",
+        "projectUniqueName": "M:\\SSTU_Study\\СГТУ 6 сем\\Автоматы\\SecProj\\SecProj\\SecProj.csproj",
         "projectName": "SecProj",
-        "projectPath": "J:\\SSTU_Proj\\СГТУ 6 сем\\Автоматы\\SecProj\\SecProj\\SecProj.csproj",
-        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "J:\\SSTU_Proj\\СГТУ 6 сем\\Автоматы\\SecProj\\SecProj\\obj\\",
+        "projectPath": "M:\\SSTU_Study\\СГТУ 6 сем\\Автоматы\\SecProj\\SecProj\\SecProj.csproj",
+        "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
+        "outputPath": "M:\\SSTU_Study\\СГТУ 6 сем\\Автоматы\\SecProj\\SecProj\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -39,13 +39,7 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.100"
+        }
       },
       "frameworks": {
         "net8.0": {
@@ -66,7 +60,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

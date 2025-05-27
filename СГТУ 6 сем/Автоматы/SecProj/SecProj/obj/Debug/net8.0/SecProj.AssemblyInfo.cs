@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SecProj")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bd9bd0f06c309084868c4256c091f80083678b85")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5d47e10f62ce9c3f1c0cc7bce852d9c1479df687")]
 [assembly: System.Reflection.AssemblyProductAttribute("SecProj")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SecProj")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

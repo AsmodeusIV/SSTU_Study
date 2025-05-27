@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            List<string> list = new List<string>() { "12*34*(x+y+z)", "5 * 5 * ( l1 + l2 + l3 )", "5*(-5)*(l1+l2+l3)", "5*(-5)*(l1+l2-l3)", "5*-5)*(3+l1)", "5*(-5)*(3+l1)", ";5*(-5)*(3+l1)" };
+            List<string> list = new List<string>() { "12*34*(x+y+z)", "5 * 5 * ( l1r5 + l2 + l3 )", "5*(-5)*(l1+l2+l3)", "5*5*(l1+l2-l3)", "5*5*(3+l1)", "5*5*(3+l1)", ";5*(-5)*(3+l1)" };
             var parser = new RecursiveParser();
             FunctionParser parser1 = new FunctionParser();
             foreach (string input in list)
